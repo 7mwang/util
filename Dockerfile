@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM openjdk:18-alpine3.13
+FROM eclipse-temurin:25-jdk
 
 # Set working directory
 WORKDIR /app
