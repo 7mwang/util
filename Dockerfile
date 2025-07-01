@@ -5,10 +5,10 @@ FROM eclipse-temurin:21-jdk
 # Set working directory
 WORKDIR /app
 
-# Install required packages (git and bash just in case)
-RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache git bash
+# Install git and bash using apt-get (Debian-based)
+RUN apt-get update && \
+    apt-get install -y git bash && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy project files into container
 COPY . .
@@ -22,4 +22,5 @@ RUN ./mvnw package -DskipTests
 # Expose the app port
 EXPOSE 8080
 
+# Run the jar (change JAR name if needed)
 CMD ["java", "-jar", "target/utility-0.0.1-SNAPSHOT.jar"]
