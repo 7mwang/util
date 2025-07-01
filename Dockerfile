@@ -1,15 +1,25 @@
-# Use a base Java image
-FROM eclipse-temurin:21-jdk
+# syntax=docker/dockerfile:1
 
-# Set the working directory inside the container
+FROM openjdk:18-alpine3.13
+
+# Set working directory
 WORKDIR /app
-RUN apk update && apk upgrade && \
-    apk add --no-cache git
-COPY . /app
-RUN ./mvnw package
 
-# Expose the port that the app will run on
+# Install required packages (git and bash just in case)
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache git bash
+
+# Copy project files into container
+COPY . .
+
+# Ensure the Maven wrapper script is executable
+RUN chmod +x mvnw
+
+# Build the project
+RUN ./mvnw package -DskipTests
+
+# Expose the app port
 EXPOSE 8080
 
-# Run the application
 CMD ["java", "-jar", "target/utility-0.0.1-SNAPSHOT.jar"]
