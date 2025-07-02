@@ -1,9 +1,8 @@
 package com.mwang.workout;
 
 import jakarta.persistence.*;
-import org.hibernate.mapping.Array;
-import org.hibernate.mapping.List;
 
+import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,13 +10,18 @@ import java.util.ArrayList;
 @Table(name = "workouts")
 public class Workout {
 
-    @Version
-    private Integer version;
-
-    @Id @GeneratedValue
+    @Id
     private LocalDate date;
+
     private String workout;
-    private ArrayList<String> sets;
+
+
+    @ElementCollection
+    private List<String> sets = new ArrayList<>();
+
+
+
+    public Workout() {}
 
     public Workout(LocalDate date, String workout, ArrayList sets) {
         this.date = date;
@@ -29,7 +33,7 @@ public class Workout {
         return workout;
     }
 
-    public ArrayList<String> getSets() {
+    public List<String> getSets() {
         return sets;
     }
 

@@ -1,9 +1,11 @@
 package com.mwang.workout;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
@@ -24,16 +26,18 @@ public class WorkoutController {
     private WorkoutService workoutService;
 
     @PostMapping("/workout/add")
-    public void addWorkout(Workout workout) {
+    public void addWorkout(@RequestBody Workout workout) {
         workoutService.save(workout);
     }
+
     @GetMapping("/")
     public String info() {
-        return "hello";
+        return "index.html";
     }
     @GetMapping("/test")
-    public void testdata() {
+    public ResponseEntity<String> testdata() {
         addWorkout(workout);
+        return ResponseEntity.ok("Workout added");
     }
 
 }
