@@ -1,10 +1,10 @@
-package com.mwang.utility;
+package com.mwang.workout;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UtilityApplicationTests {
+class MainTests {
 
 	@Test
 	void contextLoads() {
